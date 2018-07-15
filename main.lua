@@ -19,11 +19,19 @@ function love.load()
 
   backgroundX = 0
   backgroundVX = 5
+
+  stateMachine = StateMachine {
+    ['menu'] = function() return MenuState() end,
+  }
+
+  stateMachine:change('menu')
 end
 
 function love.update(dt)
   backgroundX = backgroundX + backgroundVX * dt
   backgroundX = backgroundX % VIRTUAL_WIDTH
+
+  stateMachine:update(dt)
 end
 
 function love.draw()
@@ -40,6 +48,7 @@ function love.draw()
   love.graphics.draw(textures['background5'], (backgroundX * 4) % VIRTUAL_WIDTH, 0)
   love.graphics.draw(textures['background5'], (backgroundX * 4) % VIRTUAL_WIDTH - VIRTUAL_WIDTH, 0)
 
+  stateMachine:render()
 
   push:finish()
 end
