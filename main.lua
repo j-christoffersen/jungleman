@@ -8,6 +8,18 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 384
 VIRTUAL_HEIGHT = 216
 
+function love.keypressed(key)
+  love.keyboard.keysPressed[key] = true
+end
+
+function love.keyboard.wasPressed(key)
+  if love.keyboard.keysPressed[key] then
+      return true
+  else
+      return false
+  end
+end
+
 function love.load()
   love.window.setTitle('Jungleman')
 
@@ -19,10 +31,13 @@ function love.load()
     resizable = true,
   })
 
+  love.keyboard.keysPressed = {}
+
   background = Background()
 
   stateMachine = StateMachine {
     ['menu'] = function() return MenuState() end,
+    ['play'] = function() return PlayState() end,
   }
   stateMachine:change('menu')
 end
@@ -30,6 +45,8 @@ end
 function love.update(dt)
   background:update(dt)
   stateMachine:update(dt)
+
+  love.keyboard.keysPressed = {}
 end
 
 function love.draw()
