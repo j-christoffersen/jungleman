@@ -11,6 +11,8 @@ VIRTUAL_HEIGHT = 216
 function love.load()
   love.window.setTitle('Jungleman')
 
+  love.graphics.setDefaultFilter('nearest', 'nearest')
+
   push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
     vsync = true,
     fullscreen = false,
@@ -34,6 +36,7 @@ function love.draw()
   push:start()
 
   background:render()
+  
   stateMachine:render()
 
   push:finish()
