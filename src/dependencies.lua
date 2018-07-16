@@ -7,3 +7,5 @@ require 'src/StateMachine'
 -- states
 require 'src/states/BaseState'
 require 'src/states/MenuState'
+
+require 'src/Background'

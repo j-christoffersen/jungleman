@@ -17,37 +17,23 @@ function love.load()
     resizable = true,
   })
 
-  backgroundX = 0
-  backgroundVX = 5
+  background = Background()
 
   stateMachine = StateMachine {
     ['menu'] = function() return MenuState() end,
   }
-
   stateMachine:change('menu')
 end
 
 function love.update(dt)
-  backgroundX = backgroundX + backgroundVX * dt
-  backgroundX = backgroundX % VIRTUAL_WIDTH
-
+  background:update(dt)
   stateMachine:update(dt)
 end
 
 function love.draw()
   push:start()
 
-  -- backgound
-  love.graphics.draw(textures['background1'], 0, 0)
-  love.graphics.draw(textures['background2'], backgroundX, 0)
-  love.graphics.draw(textures['background2'], backgroundX - VIRTUAL_WIDTH, 0)
-  love.graphics.draw(textures['background3'], (backgroundX * 2) % VIRTUAL_WIDTH, 0)
-  love.graphics.draw(textures['background3'], (backgroundX * 2) % VIRTUAL_WIDTH - VIRTUAL_WIDTH, 0)
-  love.graphics.draw(textures['background4'], (backgroundX * 3) % VIRTUAL_WIDTH, 0)
-  love.graphics.draw(textures['background4'], (backgroundX * 3) % VIRTUAL_WIDTH - VIRTUAL_WIDTH, 0)
-  love.graphics.draw(textures['background5'], (backgroundX * 4) % VIRTUAL_WIDTH, 0)
-  love.graphics.draw(textures['background5'], (backgroundX * 4) % VIRTUAL_WIDTH - VIRTUAL_WIDTH, 0)
-
+  background:render()
   stateMachine:render()
 
   push:finish()
