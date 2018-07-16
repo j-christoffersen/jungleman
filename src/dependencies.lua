@@ -10,3 +10,8 @@ require 'src/states/MenuState'
 require 'src/states/PlayState'
 
 require 'src/Background'
+
+require 'src/Entity'
+require 'src/Player'
+require 'src/Tiles'
+require 'src/Tile'
