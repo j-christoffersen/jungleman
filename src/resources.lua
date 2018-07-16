@@ -6,4 +6,9 @@ textures = {
   ['background5'] = love.graphics.newImage('Jungle Asset Pack/parallax background/plx-5.png'),
 
   ['player'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/jump outline.png'),
+  ['player-idle'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/idle_outline_sheet.png'),
+}
+
+animations = {
+  ['player-idle'] = Utils.generateQuads(textures['player-idle'], 21, 35)
 }

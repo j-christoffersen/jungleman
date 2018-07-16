@@ -4,10 +4,17 @@ function Player:init(opts)
   Entity.init(self, opts)
 
   self.direction = 'right'
+
+  self.animation = Animation{
+    frames = animations['player-idle'],
+    fps = 12,
+  }
 end
 
 function Player:update(dt)
   Entity.update(self, dt)
+
+  self.animation:update(dt)
 
   if love.keyboard.wasPressed('left') then
     self.direction = 'left'
@@ -30,5 +37,5 @@ function Player:render()
     orientationOffset = self.width
   end
 
-  love.graphics.draw(textures['player'], self.x + orientationOffset, self.y, 0, orientationScale, 1)
+  love.graphics.draw(textures['player-idle'], self.animation:getFrame(), self.x + orientationOffset, self.y, 0, orientationScale, 1)
 end

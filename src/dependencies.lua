@@ -1,5 +1,6 @@
 Class = require 'lib/class'
 push = require 'lib/push'
+Utils = require 'src/Utils'
 
 require 'src/resources'
 require 'src/StateMachine'
@@ -11,6 +12,7 @@ require 'src/states/PlayState'
 
 require 'src/Background'
 
+require 'src/Animation'
 require 'src/Entity'
 require 'src/Player'
 require 'src/Tiles'
