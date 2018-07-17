@@ -35,16 +35,5 @@ function Player:update(dt)
 end
 
 function Player:render()
-  local orientationScale
-  local orientationOffset
-
-  if self.direction == 'right' then
-    orientationScale = 1
-    orientationOffset = 0
-  else 
-    orientationScale = -1
-    orientationOffset = self.width
-  end
-
   Entity.render(self)
 end
