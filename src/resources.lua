@@ -7,8 +7,10 @@ textures = {
 
   ['player'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/jump outline.png'),
   ['player-idle'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/idle_outline_sheet.png'),
+  ['player-walking'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/running_outline_sheet.png'),
 }
 
 animations = {
-  ['player-idle'] = Utils.generateQuads(textures['player-idle'], 21, 35)
+  ['player-idle'] = Utils.generateQuads(textures['player-idle'], 21, 35),
+  ['player-walking'] = Utils.generateQuads(textures['player-walking'], 23, 34),
 }

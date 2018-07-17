@@ -1,8 +1,27 @@
 local IdleState = {}
 setmetatable(IdleState, {__index = BaseState})
 
+function IdleState:enter()
+  self.animation = Animation{
+    frames = animations['player-idle'],
+    fps = gFps,
+  }
+end
+
 function IdleState:update(dt)
   self.animation:update(dt)
+
+  self.dx = 0
+
+  if love.keyboard.isDown('left') then
+    self.direction = 'left'
+    self:change('walking')
+  end
+
+  if love.keyboard.isDown('right') then
+    self.direction = 'right'
+    self:change('walking')
+  end
 end
 
 function IdleState:render()
@@ -19,7 +38,8 @@ function IdleState:render()
 
   love.graphics.draw(textures['player-idle'],
     self.animation:getFrame(),
-    self.x + orientationOffset, self.y, 0,
+    math.floor(self.x + orientationOffset), math.floor(self.y),
+    0,
     orientationScale, 1)
 end
 

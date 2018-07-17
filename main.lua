@@ -8,6 +8,8 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 384
 VIRTUAL_HEIGHT = 216
 
+gFps = 12
+
 function love.keypressed(key)
   love.keyboard.keysPressed[key] = true
 end
