@@ -1,7 +1,18 @@
-Player = Class{__inlcudes = Entity}
+local IdleState = require 'src/Player/IdleState'
 
-function Player:init(opts)
-  Entity.init(self, opts)
+Player = Class{__includes = Entity}
+
+function Player:init()
+  Entity.init(self, {
+    x = 50,
+    y = 50,
+    width = 19,
+    height = 36,
+    states = {
+      ['idle'] = IdleState,
+    }
+  })
+  self:change('idle')
 
   self.direction = 'right'
 
@@ -13,8 +24,6 @@ end
 
 function Player:update(dt)
   Entity.update(self, dt)
-
-  self.animation:update(dt)
 
   if love.keyboard.wasPressed('left') then
     self.direction = 'left'
@@ -37,5 +46,5 @@ function Player:render()
     orientationOffset = self.width
   end
 
-  love.graphics.draw(textures['player-idle'], self.animation:getFrame(), self.x + orientationOffset, self.y, 0, orientationScale, 1)
+  Entity.render(self)
 end

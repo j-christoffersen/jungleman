@@ -1,4 +1,5 @@
-MenuState = Class{__includes = BaseState}
+MenuState = {}
+setmetatable(MenuState, {__index = BaseState})
 
 function MenuState:init()
   self.selected = 1

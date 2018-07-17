@@ -36,8 +36,8 @@ function love.load()
   background = Background()
 
   stateMachine = StateMachine {
-    ['menu'] = function() return MenuState() end,
-    ['play'] = function() return PlayState() end,
+    ['menu'] = MenuState,
+    ['play'] = PlayState,
   }
   stateMachine:change('menu')
 end

@@ -13,15 +13,15 @@ end
 
 function StateMachine:change(stateName, enterParams)
 	assert(self.states[stateName]) -- state must exist!
-	self.current:exit()
-	self.current = self.states[stateName]()
-	self.current:enter(enterParams)
+	self.current.exit(self)
+	self.current = self.states[stateName]
+	self.current.enter(self, enterParams)
 end
 
 function StateMachine:update(dt)
-	self.current:update(dt)
+	self.current.update(self, dt)
 end
 
 function StateMachine:render()
-	self.current:render()
+	self.current.render(self)
 end

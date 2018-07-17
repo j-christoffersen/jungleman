@@ -14,6 +14,7 @@ require 'src/Background'
 
 require 'src/Animation'
 require 'src/Entity'
-require 'src/Player'
+require 'src/Player/Player'
+require 'src/Player/IdleState'
 require 'src/Tiles'
 require 'src/Tile'

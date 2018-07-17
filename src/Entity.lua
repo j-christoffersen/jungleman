@@ -1,23 +1,27 @@
-Entity = Class{}
+Entity = Class{__includes = StateMachine}
 
-function Entity:init(opts)
-  opts = opts or {}
+function Entity:init(def)
+  StateMachine.init(self, def.states)
 
-  self.width = opts.width or 0
-  self.heihgt = opts.height or 0
+  def = def or {}
 
-  self.x = opts.x or 0
-  self.y = opts.y or 0
+  self.width = def.width or 0
+  self.heihgt = def.height or 0
+
+  self.x = def.x or 0
+  self.y = def.y or 0
 
   self.dx = 0
   self.dy = 0
 end
 
 function Entity:update(dt)
+  StateMachine.update(self, dt)
+
   self.x = self.x + self.dx * dt
   self.y = self.y + self.dy * dt
 end
 
 function Entity:render()
-
+  StateMachine.render(self)
 end

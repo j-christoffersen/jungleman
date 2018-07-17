@@ -1,7 +1,8 @@
-PlayState = Class{__includes = BaseState}
+PlayState = {}
+setmetatable(PlayState, {__index = BaseState})
 
-function PlayState:init()
-  self.player = Player({x = 50, y = 50, width = 19, height = 36})
+function PlayState:enter()
+  self.player = Player()
   -- self.tiles = Tiles()
 end
 
