@@ -1,26 +1,22 @@
 local ClassII = require 'src/Class'
 local Player = require 'src/Player/Player'
 
-local WalkingPlayer = ClassII{ name = 'WalkingPlayer', extends = Player }
+local FallingPlayer = ClassII{ name = 'FallingPlayer', extends = Player }
 
-function WalkingPlayer.prototype:enter()
+function FallingPlayer.prototype:enter()
   self.animation = Animation{
-    frames = animations['player-walking'],
+    frames = animations['player-midair'],
     fps = gFps,
   }
 end
 
-function WalkingPlayer.prototype:update(dt)
+function FallingPlayer.prototype:update(dt)
   Player.prototype.update(self, dt)
-
-  self.animation:update(dt)
 
   if love.keyboard.isDown('left') then
     self.direction = 'left'
   elseif love.keyboard.isDown('right') then
     self.direction = 'right'
-  else
-    self:change('idle')
   end
 
   local speed = 100
@@ -31,12 +27,15 @@ function WalkingPlayer.prototype:update(dt)
     self.dx = speed
   end
 
-  if not self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
-    self:change('falling')
+  self.dy = self.dy + 10
+
+  if self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
+    self:change('idle')
+    self.dy = 0
   end
 end
 
-function WalkingPlayer.prototype:render()
+function FallingPlayer.prototype:render()
   local orientationScale
   local orientationOffset
 
@@ -48,12 +47,12 @@ function WalkingPlayer.prototype:render()
     orientationOffset = self.width
   end
 
-  love.graphics.draw(textures['player-walking'],
+  love.graphics.draw(textures['player-midair'],
     self.animation:getFrame(),
     math.floor(self.x + orientationOffset), math.floor(self.y),
     0,
     orientationScale, 1)
 end
 
-Player.states.walking = WalkingPlayer
-return WalkingPlayer
+Player.states.falling = FallingPlayer
+return FallingPlayer

@@ -2,7 +2,13 @@ TileMap = Class{}
 
 function TileMap:init(tiles)
   self.tiles = tiles
-  print(self.tiles)
+end
+
+function TileMap:tileAt(x, y)
+  i = math.floor(x / 16) + 1
+  j = math.floor(y / 16) + 1
+
+  return self.tiles[i][j]
 end
 
 function TileMap:update(dt)

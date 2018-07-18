@@ -6,7 +6,7 @@ local Class = function(opts)
     setmetatable(class.prototype, { __index = opts.extends.prototype })
   end
 
-  local wrappedConstructorFunc = function(obj)
+  local wrappedConstructorFunc = function(self, obj)
     obj = obj or {}
     setmetatable(obj, { __index = class.prototype })
 
@@ -20,7 +20,7 @@ local Class = function(opts)
   if opts and opts.name then
     getmetatable(class).name = name
   end
-  
+
   return class
 end
 

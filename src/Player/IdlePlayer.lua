@@ -26,6 +26,10 @@ function IdlePlayer.prototype:update(dt)
     self.direction = 'right'
     self:change('walking')
   end
+
+  if not self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
+    self:change('falling')
+  end
 end
 
 function IdlePlayer.prototype:render()

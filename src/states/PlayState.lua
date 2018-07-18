@@ -22,8 +22,8 @@ local function generateMap()
 end
 
 function PlayState:enter()
-  self.player = Player()
   self.tileMap = TileMap(generateMap())
+  self.player = Player({ map = self.tileMap })
 end
 
 function PlayState:update(dt)
