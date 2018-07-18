@@ -1,36 +1,38 @@
 local ClassII = require 'src/Class'
 local Player = require 'src/PlayerII/Player'
 
-local IdlePlayer = ClassII{ name = 'IdlePlayer', extends = Player }
+local WalkingPlayer = ClassII{ name = 'WalkingPlayer', extends = Player }
 
-function IdlePlayer.prototype:enter()
+function WalkingPlayer.prototype:enter()
   self.animation = Animation{
-    frames = animations['player-idle'],
+    frames = animations['player-walking'],
     fps = gFps,
   }
 end
 
-function IdlePlayer.prototype:update(dt)
+function WalkingPlayer.prototype:update(dt)
   Player.prototype.update(self, dt)
 
   self.animation:update(dt)
 
-  self.dx = 0
-
   if love.keyboard.isDown('left') then
     self.direction = 'left'
-    self:change('walking')
+  elseif love.keyboard.isDown('right') then
+    self.direction = 'right'
+  else
+    self:change('idle')
   end
 
-  if love.keyboard.isDown('right') then
-    self.direction = 'right'
-    self:change('walking')
+  local speed = 100
+
+  if self.direction == 'left' then
+    self.dx = -speed
+  elseif self.direction == 'right' then
+    self.dx = speed
   end
 end
 
-function IdlePlayer.prototype:render()
-  -- Player.prototype.render(self)
-
+function WalkingPlayer.prototype:render()
   local orientationScale
   local orientationOffset
 
@@ -42,12 +44,12 @@ function IdlePlayer.prototype:render()
     orientationOffset = self.width
   end
 
-  love.graphics.draw(textures['player-idle'],
+  love.graphics.draw(textures['player-walking'],
     self.animation:getFrame(),
     math.floor(self.x + orientationOffset), math.floor(self.y),
     0,
     orientationScale, 1)
 end
 
-Player.states.idle = IdlePlayer
-return IdlePlayer
+Player.states.walking = WalkingPlayer
+return WalkingPlayer

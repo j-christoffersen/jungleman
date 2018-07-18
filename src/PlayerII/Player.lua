@@ -26,9 +26,17 @@ function Player.prototype:init()
   self.height = 35
   self.states = self.constructor.states
   self.state = 'empty'
+  
+  self.dx = 0
+  self.dy = 0
 
   self:change('idle')
   Stateful.prototype.init(self)
+end
+
+function Player.prototype:update(dt)
+  self.x = self.x + self.dx * dt
+  self.y = self.y + self.dy * dt
 end
 
 return Player
