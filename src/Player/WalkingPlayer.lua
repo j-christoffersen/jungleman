@@ -8,6 +8,10 @@ function WalkingPlayer.prototype:enter()
     frames = animations['player-walking'],
     fps = gFps,
   }
+
+  if params then
+    self.landing = params.landing
+  end
 end
 
 function WalkingPlayer.prototype:update(dt)
@@ -47,12 +51,20 @@ function WalkingPlayer.prototype:render()
     orientationScale = -1
     orientationOffset = self.width
   end
+  if (self.landing) then
+    love.graphics.draw(textures['player-landing'],
+      math.floor(self.x + orientationOffset), math.floor(self.y),
+      0,
+      orientationScale, 1)
 
-  love.graphics.draw(textures['player-walking'],
-    self.animation:getFrame(),
-    math.floor(self.x + orientationOffset), math.floor(self.y),
-    0,
-    orientationScale, 1)
+    self.landing = false
+  else
+    love.graphics.draw(textures['player-walking'],
+      self.animation:getFrame(),
+      math.floor(self.x + orientationOffset), math.floor(self.y),
+      0,
+      orientationScale, 1)
+  end
 end
 
 Player.states.walking = WalkingPlayer

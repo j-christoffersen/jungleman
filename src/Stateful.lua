@@ -6,10 +6,12 @@ function Stateful.prototype:init()
 
 end
 
-function Stateful.prototype:change(state)
+function Stateful.prototype:change(state, enterParams)
   assert(self.states[state])
+  
+  self:exit()
   getmetatable(self).__index = self.states[state].prototype
-  self:enter()
+  self:enter(enterParams)
 end
 
 function Stateful.prototype:enter() end

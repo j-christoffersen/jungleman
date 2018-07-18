@@ -3,11 +3,15 @@ local Player = require 'src/Player/Player'
 
 local IdlePlayer = ClassII{ name = 'IdlePlayer', extends = Player }
 
-function IdlePlayer.prototype:enter()
+function IdlePlayer.prototype:enter(params)
   self.animation = Animation{
     frames = animations['player-idle'],
     fps = gFps,
   }
+
+  if params then
+    self.landing = params.landing
+  end
 end
 
 function IdlePlayer.prototype:update(dt)

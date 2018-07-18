@@ -30,7 +30,12 @@ function FallingPlayer.prototype:update(dt)
   self.dy = self.dy + 10
 
   if self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
-    self:change('idle')
+    if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
+      self:change('walking', { landing = true })
+    else
+      self:change('idle')
+    end
+
     self.dy = 0
   end
 end
