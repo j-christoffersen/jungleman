@@ -20,6 +20,7 @@ function Player.prototype:init()
   self.SPEED = 128
   self.JUMP_SPEED = 384
   self.GRAVITY = 16
+  self.DECEL = 8 -- deceleration when midair
 
   self.x = 50
   self.y = 50

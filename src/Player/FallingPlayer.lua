@@ -3,6 +3,12 @@ local Player = require 'src/Player/Player'
 
 local FallingPlayer = ClassII{ name = 'FallingPlayer', extends = Player }
 
+function sign(x)
+  if x > 0 then return 1
+  elseif x < 0 then return -1
+  else return 0 end
+end
+
 function FallingPlayer.prototype:enter(params)
   self.animation = Animation{
     frames = animations['player-midair'],
@@ -19,14 +25,17 @@ function FallingPlayer.prototype:update(dt)
 
   if love.keyboard.isDown('left') then
     self.direction = 'left'
+    self.dx = -self.SPEED
   elseif love.keyboard.isDown('right') then
     self.direction = 'right'
-  end
-
-  if self.direction == 'left' then
-    self.dx = -self.SPEED
-  elseif self.direction == 'right' then
     self.dx = self.SPEED
+  else
+    local newDx = self.dx - self.DECEL * sign(self.dx)
+    if sign(newDx) == sign(self.dx) then
+      self.dx = newDx
+    else
+      self.dx = 0
+    end
   end
 
   self.dy = self.dy + self.GRAVITY

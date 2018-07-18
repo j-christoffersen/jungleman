@@ -10,7 +10,7 @@ local function generateMap()
     map[i] = {}
 
     for j = 1, VIRTUAL_HEIGHT / 16 do
-      if (j == 13) then
+      if (j == 13 or i >= 16) then
         map[i][j] = Tile{x = 16 * (i - 1), y = 16 * (j - 1)}
       else
         map[i][j] = nil
