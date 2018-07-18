@@ -1,14 +1,18 @@
-local WalkingState = {}
-setmetatable(WalkingState, { __index = BaseState })
+local ClassII = require 'src/Class'
+local Player = require 'src/Player/Player'
 
-function WalkingState:enter()
+local WalkingPlayer = ClassII{ name = 'WalkingPlayer', extends = Player }
+
+function WalkingPlayer.prototype:enter()
   self.animation = Animation{
     frames = animations['player-walking'],
     fps = gFps,
   }
 end
 
-function WalkingState:update(dt)
+function WalkingPlayer.prototype:update(dt)
+  Player.prototype.update(self, dt)
+
   self.animation:update(dt)
 
   if love.keyboard.isDown('left') then
@@ -28,7 +32,7 @@ function WalkingState:update(dt)
   end
 end
 
-function WalkingState:render()
+function WalkingPlayer.prototype:render()
   local orientationScale
   local orientationOffset
 
@@ -47,4 +51,5 @@ function WalkingState:render()
     orientationScale, 1)
 end
 
-return WalkingState
+Player.states.walking = WalkingPlayer
+return WalkingPlayer

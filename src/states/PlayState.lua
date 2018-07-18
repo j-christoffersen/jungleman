@@ -1,4 +1,4 @@
-local Player = require 'src/PlayerII/default'
+local Player = require 'src/Player/default'
 
 PlayState = {}
 setmetatable(PlayState, {__index = BaseState})

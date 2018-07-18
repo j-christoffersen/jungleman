@@ -1,5 +1,5 @@
 local ClassII = require 'src/Class'
-local Player = require 'src/PlayerII/Player'
+local Player = require 'src/Player/Player'
 
 local IdlePlayer = ClassII{ name = 'IdlePlayer', extends = Player }
 

@@ -1,28 +1,42 @@
-local IdleState = require 'src/Player/IdleState'
-local WalkingState = require 'src/Player/WalkingState'
+local ClassII = require 'src/Class'
+local Stateful = require 'src/Stateful'
 
-Player = Class{__includes = Entity}
+-- boilerplate
+local Player = ClassII({ name = 'Player', extends = Stateful })
 
-function Player:init()
-  Entity.init(self, {
-    x = 50,
-    y = 50,
-    width = 23,
-    height = 35,
-    states = {
-      ['idle'] = IdleState,
-      ['walking'] = WalkingState,
-    }
-  })
+print(Player)
+print(className(Player.prototype))
+
+-- function Player:new(obj)
+--   setmetatable(obj, { __index = self.prototype })
+--   return self.prototype.init(obj)
+-- end
+-- end boilerplate
+
+Player.states = {
+  empty = {
+    exit = function() end
+  }
+}
+
+function Player.prototype:init()  
+  self.x = 50
+  self.y = 50
+  self.width = 23
+  self.height = 35
+  self.states = self.constructor.states
+  self.state = 'empty'
+  
+  self.dx = 0
+  self.dy = 0
+
   self:change('idle')
-
-  self.direction = 'right'
+  Stateful.prototype.init(self)
 end
 
-function Player:update(dt)
-  Entity.update(self, dt)
+function Player.prototype:update(dt)
+  self.x = self.x + self.dx * dt
+  self.y = self.y + self.dy * dt
 end
 
-function Player:render()
-  Entity.render(self)
-end
+return Player
