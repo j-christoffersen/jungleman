@@ -31,6 +31,11 @@ function IdlePlayer.prototype:update(dt)
     self:change('walking')
   end
 
+  if love.keyboard.isDown('up') then
+    self:change('falling', { jump = true })
+    self.dy = -self.JUMP_SPEED
+  end
+
   if not self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
     self:change('falling')
   end

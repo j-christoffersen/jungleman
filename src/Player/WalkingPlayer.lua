@@ -27,12 +27,15 @@ function WalkingPlayer.prototype:update(dt)
     self:change('idle')
   end
 
-  local speed = 100
+  if love.keyboard.isDown('up') then
+    self:change('falling', { jump = true })
+    self.dy = -self.JUMP_SPEED
+  end
 
   if self.direction == 'left' then
-    self.dx = -speed
+    self.dx = -self.SPEED
   elseif self.direction == 'right' then
-    self.dx = speed
+    self.dx = self.SPEED
   end
 
   if not self.map:tileAt(self.x + self.width / 2, self.y + self.height) then

@@ -3,11 +3,15 @@ local Player = require 'src/Player/Player'
 
 local FallingPlayer = ClassII{ name = 'FallingPlayer', extends = Player }
 
-function FallingPlayer.prototype:enter()
+function FallingPlayer.prototype:enter(params)
   self.animation = Animation{
     frames = animations['player-midair'],
     fps = gFps,
   }
+
+  if params then
+    self.jumping = params.jumping
+  end
 end
 
 function FallingPlayer.prototype:update(dt)
@@ -19,15 +23,13 @@ function FallingPlayer.prototype:update(dt)
     self.direction = 'right'
   end
 
-  local speed = 100
-
   if self.direction == 'left' then
-    self.dx = -speed
+    self.dx = -self.SPEED
   elseif self.direction == 'right' then
-    self.dx = speed
+    self.dx = self.SPEED
   end
 
-  self.dy = self.dy + 10
+  self.dy = self.dy + self.GRAVITY
 
   if self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
     if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
@@ -52,11 +54,20 @@ function FallingPlayer.prototype:render()
     orientationOffset = self.width
   end
 
-  love.graphics.draw(textures['player-midair'],
-    self.animation:getFrame(),
-    math.floor(self.x + orientationOffset), math.floor(self.y),
-    0,
-    orientationScale, 1)
+  if self.jumping then
+    love.graphics.draw(textures['player-jumping'],
+      math.floor(self.x + orientationOffset), math.floor(self.y),
+      0,
+      orientationScale, 1)
+
+    self.jumping = false
+  else
+    love.graphics.draw(textures['player-midair'],
+      self.animation:getFrame(),
+      math.floor(self.x + orientationOffset), math.floor(self.y),
+      0,
+      orientationScale, 1)
+  end
 end
 
 Player.states.falling = FallingPlayer
