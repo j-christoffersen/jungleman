@@ -10,7 +10,7 @@ textures = {
   ['player-jumping'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/jump outline.png'),
   ['player-midair'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/mid air outline.png'),
   ['player-landing'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/landing outline.png'),
-
+  ['player-ledge-grab'] = love.graphics.newImage('Jungle Asset Pack/ Character with outline/sprites/ledge grab outline.png'),
 
   ['tileset'] = love.graphics.newImage('Jungle Asset Pack/jungle tileset/jungle tileset.png')
 }
@@ -18,7 +18,8 @@ textures = {
 animations = {
   ['player-idle'] = Utils.generateQuads(textures['player-idle'], 21, 35),
   ['player-walking'] = Utils.generateQuads(textures['player-walking'], 23, 34),
-  ['player-midair'] = Utils.generateQuads(textures['player-midair'], 22, 37)
+  ['player-midair'] = Utils.generateQuads(textures['player-midair'], 22, 37),
+  ['player-ledge-grab'] = Utils.generateQuads(textures['player-ledge-grab'], 22, 42),
 }
 
 sets = {

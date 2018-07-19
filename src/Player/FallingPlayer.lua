@@ -46,14 +46,29 @@ function FallingPlayer.prototype:update(dt)
 
   -- collisions
 
-  local tileBeside = self:tileBeside()
-  if tileBeside then
+  local tileBesideHigh = self:tileBesideHigh()
+  local tileBesideLow = self:tileBeside()
+  if tileBesideHigh then
     self.dx = 0
-    if tileBeside.x < self.x then
-      self.x = tileBeside.x + TILE_SIZE
+    if tileBesideHigh.x < self.x then
+      self.x = tileBesideHigh.x + TILE_SIZE
     else
-      self.x = tileBeside.x - self.width
+      self.x = tileBesideHigh.x - self.width
     end
+  elseif
+    tileBesideLow and
+    ((self.direction == 'left' and love.keyboard.isDown('left')) or
+    (self.direction == 'right' and love.keyboard.isDown('right')))
+  then
+    self.dx = 0
+    if tileBesideLow.x < self.x then
+      self.x = tileBesideLow.x + TILE_SIZE
+    else
+      self.x = tileBesideLow.x - self.width
+    end
+
+    self:change('ledge-grab')
+    self.dy = 0
   end
 
   local tileBelow = self:tileBelow()

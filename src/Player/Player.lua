@@ -53,6 +53,15 @@ function Player.prototype:tileBeside()
     self.map:tileAt(self.x + self.width - 1, self.y + TILE_SIZE)))
 end
 
+function Player.prototype:tileBesideHigh()
+  return
+    (self.direction == 'left' and
+    self.map:tileAt(self.x, self.y)) or
+
+    (self.direction == 'right' and
+    self.map:tileAt(self.x + self.width - 1, self.y))
+end
+
 function Player.prototype:tileBelow()
   local tileBelowLeft = self.map:tileAt(self.x, self.y + self.height)
   return tileBelowLeft or self.map:tileAt(self.x + self.width - 1, self.y + self.height)
