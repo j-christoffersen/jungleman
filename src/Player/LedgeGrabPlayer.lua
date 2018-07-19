@@ -7,11 +7,15 @@ function LedgeGrabPlayer.prototype:enter()
   self.animation = Animation{
     frames = animations['player-ledge-grab'],
     fps = gFps,
-    loopStart = 1,
+    loopStart = 4,
   }
 end
 
 function LedgeGrabPlayer.prototype:update(dt)
+  Player.prototype.update(self, dt)
+
+  self.animation:update(dt)
+
   if love.keyboard.isDown('left') and self.direction == 'right' then
     self.direction = 'left'
     self:change('falling')

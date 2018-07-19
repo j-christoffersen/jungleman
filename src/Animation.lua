@@ -10,15 +10,15 @@ end
 
 function Animation:update(dt)
   self.timer = (self.timer + dt)
-  if self.timer * self.fps > self.frameCount then
-    print('kk')
-    local loopStartTime = (self.loopStart - 1) / self.fps
-    local loopLengthTime = (self.frameCount - self.loopStart) / self.fps
-    self.timer = (self.timer - loopStartTime) % loopLengthTime + loopStartTime
-  end
 end
 
 function Animation:getFrame()
-  local currentFrame = math.floor(self.timer * self.fps) + 1
+  local currentFrame = math.floor(self.timer * self.fps + 1)
+
+  if currentFrame > self.frameCount then
+    local loopLength = self.frameCount + 1 - self.loopStart
+    currentFrame = (currentFrame - self.loopStart) % loopLength + self.loopStart
+  end
+
   return self.frames[currentFrame]
 end

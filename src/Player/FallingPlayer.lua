@@ -21,6 +21,8 @@ function FallingPlayer.prototype:enter(params)
 end
 
 function FallingPlayer.prototype:update(dt)
+  self.animation:update(dt)
+
   -- location updates
 
   Player.prototype.update(self, dt)
@@ -68,6 +70,7 @@ function FallingPlayer.prototype:update(dt)
     end
 
     self:change('ledge-grab')
+    self.dx = 0
     self.dy = 0
   end
 
