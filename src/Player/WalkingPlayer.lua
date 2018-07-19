@@ -40,18 +40,14 @@ function WalkingPlayer.prototype:update(dt)
 
   -- collisions
 
-  if
-    self.direction == 'left' and
-    (self.map:tileAt(self.x, self.y) or self.map:tileAt(self.x, self.y + TILE_SIZE))
-  then
+  local tileBeside = self:tileBeside()
+  if tileBeside then
     self.dx = 0
-  end
-
-  if
-    self.direction == 'right' and
-    (self.map:tileAt(self.x + self.width, self.y) or self.map:tileAt(self.x + self.width, self.y + TILE_SIZE))
-  then
-    self.dx = 0
+    if tileBeside.x < self.x then
+      self.x = tileBeside.x + TILE_SIZE
+    else
+      self.x = tileBeside.x - self.width
+    end
   end
 
   if not self:tileBelow() then

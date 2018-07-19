@@ -42,9 +42,20 @@ function Player.prototype:update(dt)
   self.y = self.y + self.dy * dt
 end
 
+function Player.prototype:tileBeside()
+  return
+    (self.direction == 'left' and
+    (self.map:tileAt(self.x, self.y) or
+    self.map:tileAt(self.x, self.y + TILE_SIZE))) or
+
+    (self.direction == 'right' and
+    (self.map:tileAt(self.x + self.width - 1, self.y) or
+    self.map:tileAt(self.x + self.width - 1, self.y + TILE_SIZE)))
+end
+
 function Player.prototype:tileBelow()
   local tileBelowLeft = self.map:tileAt(self.x, self.y + self.height)
-  return tileBelowLeft or self.map:tileAt(self.x + self.width, self.y + self.height)
+  return tileBelowLeft or self.map:tileAt(self.x + self.width - 1, self.y + self.height)
 end
 
 return Player
