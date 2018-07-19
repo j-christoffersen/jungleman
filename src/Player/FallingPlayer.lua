@@ -40,6 +40,22 @@ function FallingPlayer.prototype:update(dt)
 
   self.dy = self.dy + self.GRAVITY
 
+  -- collisions
+
+  if
+    self.direction == 'left' and
+    (self.map:tileAt(self.x, self.y) or self.map:tileAt(self.x, self.y + TILE_SIZE))
+  then
+    self.dx = 0
+  end
+
+  if
+    self.direction == 'right' and
+    (self.map:tileAt(self.x + self.width, self.y) or self.map:tileAt(self.x + self.width, self.y + TILE_SIZE))
+  then
+    self.dx = 0
+  end
+
   if self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
     if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
       self:change('walking', { landing = true })

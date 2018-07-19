@@ -8,6 +8,8 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 384
 VIRTUAL_HEIGHT = 216
 
+TILE_SIZE = 16
+
 gFps = 12
 
 function love.keypressed(key)

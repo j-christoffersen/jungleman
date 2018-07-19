@@ -38,6 +38,22 @@ function WalkingPlayer.prototype:update(dt)
     self.dx = self.SPEED
   end
 
+  -- collisions
+
+  if
+    self.direction == 'left' and
+    (self.map:tileAt(self.x, self.y) or self.map:tileAt(self.x, self.y + TILE_SIZE))
+  then
+    self.dx = 0
+  end
+
+  if
+    self.direction == 'right' and
+    (self.map:tileAt(self.x + self.width, self.y) or self.map:tileAt(self.x + self.width, self.y + TILE_SIZE))
+  then
+    self.dx = 0
+  end
+
   if not self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
     self:change('falling')
   end
