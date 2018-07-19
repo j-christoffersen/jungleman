@@ -21,7 +21,11 @@ function FallingPlayer.prototype:enter(params)
 end
 
 function FallingPlayer.prototype:update(dt)
+  -- location updates
+
   Player.prototype.update(self, dt)
+
+  -- speed updates
 
   if love.keyboard.isDown('left') then
     self.direction = 'left'
@@ -56,7 +60,8 @@ function FallingPlayer.prototype:update(dt)
     self.dx = 0
   end
 
-  if self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
+  local tileBelow = self.map:tileAt(self.x + self.width / 2, self.y + self.height)
+  if tileBelow then
     if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
       self:change('walking', { landing = true })
     else
@@ -64,6 +69,7 @@ function FallingPlayer.prototype:update(dt)
     end
 
     self.dy = 0
+    self.y = tileBelow.y - self.height
   end
 end
 
