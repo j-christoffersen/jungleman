@@ -22,10 +22,11 @@ function Player.prototype:init()
   self.GRAVITY = 16
   self.DECEL = 8 -- deceleration when midair
 
+  self.width = 23
+  self.height = 33
+
   self.x = 50
   self.y = 50
-  self.width = 23
-  self.height = 35
   self.states = self.constructor.states
   self.state = 'empty'
   
@@ -39,6 +40,11 @@ end
 function Player.prototype:update(dt)
   self.x = self.x + self.dx * dt
   self.y = self.y + self.dy * dt
+end
+
+function Player.prototype:tileBelow()
+  local tileBelowLeft = self.map:tileAt(self.x, self.y + self.height)
+  return tileBelowLeft or self.map:tileAt(self.x + self.width, self.y + self.height)
 end
 
 return Player

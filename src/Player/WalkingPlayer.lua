@@ -54,7 +54,7 @@ function WalkingPlayer.prototype:update(dt)
     self.dx = 0
   end
 
-  if not self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
+  if not self:tileBelow() then
     self:change('falling')
   end
 end

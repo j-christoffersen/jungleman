@@ -36,7 +36,7 @@ function IdlePlayer.prototype:update(dt)
     self.dy = -self.JUMP_SPEED
   end
 
-  if not self.map:tileAt(self.x + self.width / 2, self.y + self.height) then
+  if not self:tileBelow() then
     self:change('falling')
   end
 end
