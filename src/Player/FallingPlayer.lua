@@ -59,6 +59,7 @@ function FallingPlayer.prototype:update(dt)
     end
   elseif
     tileBesideLow and
+    self.dy >= 0 and
     ((self.direction == 'left' and love.keyboard.isDown('left')) or
     (self.direction == 'right' and love.keyboard.isDown('right')))
   then

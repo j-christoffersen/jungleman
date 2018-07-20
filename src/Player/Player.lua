@@ -21,6 +21,7 @@ function Player.prototype:init()
   self.JUMP_SPEED = 384
   self.GRAVITY = 16
   self.DECEL = 8 -- deceleration when midair
+  self.JUMP_COOLDOWN_TIME = 4 / gFps -- cooldown for ledge grabbing
 
   self.width = 23
   self.height = 33
