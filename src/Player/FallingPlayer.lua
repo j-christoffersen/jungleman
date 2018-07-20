@@ -31,10 +31,10 @@ function FallingPlayer.prototype:update(dt)
 
   if love.keyboard.isDown('left') then
     self.direction = 'left'
-    self.dx = -self.SPEED
+    self.dx = math.max(self.dx - self.MIDAIR_ACCEL, -self.SPEED)
   elseif love.keyboard.isDown('right') then
     self.direction = 'right'
-    self.dx = self.SPEED
+    self.dx = math.min(self.dx + self.MIDAIR_ACCEL, self.SPEED)
   else
     local newDx = self.dx - self.DECEL * sign(self.dx)
     if sign(newDx) == sign(self.dx) then
