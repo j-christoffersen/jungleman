@@ -23,9 +23,11 @@ function LedgeGrabPlayer.prototype:update(dt)
   if love.keyboard.isDown('left') and self.direction == 'right' then
     self.direction = 'left'
     self:change('falling')
+    self.dx = -self.SPEED
   elseif love.keyboard.isDown('right') and self.direction == 'left' then
     self.direction = 'right'
     self:change('falling')
+    self.dx = self.SPEED
   elseif love.keyboard.isDown('down')then
     self:change('falling')
   end
@@ -33,6 +35,11 @@ function LedgeGrabPlayer.prototype:update(dt)
   if love.keyboard.isDown('up')  and self.jumpCooldownTimer >= self.JUMP_COOLDOWN_TIME then
     self:change('falling', { jump = true })
     self.dy = -self.JUMP_SPEED
+    if self.direction == 'left' then
+      self.dx = self.SPEED
+    else
+      self.dx = - self.SPEED
+    end
   end
 end
 
