@@ -42,10 +42,10 @@ function LedgeGrabPlayer.prototype:render()
 
   if self.direction == 'right' then
     orientationScale = 1
-    orientationOffset = 0
+    orientationOffset = 2
   else 
     orientationScale = -1
-    orientationOffset = self.width
+    orientationOffset = self.width - 2
   end
 
   love.graphics.draw(textures['player-ledge-grab'],

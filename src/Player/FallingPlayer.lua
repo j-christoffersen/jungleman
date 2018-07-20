@@ -50,6 +50,7 @@ function FallingPlayer.prototype:update(dt)
 
   local tileBesideHigh = self:tileBesideHigh()
   local tileBesideLow = self:tileBeside()
+
   if tileBesideHigh then
     self.dx = 0
     if tileBesideHigh.x < self.x then
@@ -73,7 +74,16 @@ function FallingPlayer.prototype:update(dt)
     self:change('ledge-grab')
     self.dx = 0
     self.dy = 0
+
+    if self.direction == 'left' then
+      self.x = tileBesideLow.x + TILE_SIZE
+    else
+      self.x = tileBesideLow.x - self.width
+    end
+
+    self.y = tileBesideLow.y - 8
   end
+
 
   local tileBelow = self:tileBelow()
   if tileBelow and self.dy >= 0 then
